@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs"); // se importa bcrypt para encriptar contraseñas
+const jwt = require("jsonwebtoken"); // se importa jsonwebtoken para manejar tokens JWT
 const User = require("../models/user"); // se declara el modelo User
 const { NotFoundError, InvalidDataError } = require("../utils/errorHandler"); // se importa el manejador de errores
-// const user = require("../models/user");
 
 const getUsers = async (req, res) => {
   try {
@@ -46,6 +46,36 @@ const createUser = async (req, res) => {
     res.status(201).send(user);
   } catch (err) {
     res.status(err.statusCode).send({ message: err.message });
+  }
+};
+
+const login = async (req, res) => {
+  const { email, password } = req.body; // Extrae 'email' y 'password' del cuerpo de la solicitud
+
+  try {
+    const user = await User.findOne({ email }); // Busca el usuario por email y selecciona la contraseña
+    if (!user) {
+      return res
+        .status(401)
+        .send({ message: "Usuario o contraseña incorrectos" });
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password); // Compara las contraseñas
+    if (!isPasswordValid) {
+      return res
+        .status(401)
+        .send({ message: "Usuario o contraseña incorrectos" });
+    }
+
+    // Si las credenciales son válidas, crea un token JWT
+    const token = jwt.sign(
+      { _id: user._id }, // Crea un token JWT con el ID del usuario
+      JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+    res.send({ token }); // Envía el token al cliente
+  } catch (err) {
+    res.status(401).send({ message: "Error al iniciar sesión" });
   }
 };
 
