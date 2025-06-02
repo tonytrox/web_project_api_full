@@ -22,13 +22,14 @@ app.use((req, res, next) => {
   next();
 });
 
+app.post("/signin", login);
+app.post("/signup", createUser);
 app.use("/users", usersRouter);
 app.use("/cards", cardsRouter);
+
+// Manejo de errores para rutas no encontradas
 app.use((req, res) => {
   res.status(404).send({
     message: "Recurso solicitado no encontrado",
   });
 });
-
-app.post("/signin", login);
-spp.post("/signup", createUser);

@@ -4,7 +4,6 @@ const router = require("express").Router(); // const router = express.Router();
 const {
   getUsers,
   getUserById,
-  createUser,
   updateUserProfile,
   updateUserAvatar,
 } = require("../controllers/users");
@@ -12,7 +11,6 @@ const {
 // Cada ruta específica invocara al controlador correspondiente
 router.get("/", getUsers);
 router.get("/:userId", getUserById);
-
 router.patch("/me", updateUserProfile);
 router.patch("/me/avatar", updateUserAvatar);
 
