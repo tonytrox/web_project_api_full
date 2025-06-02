@@ -1,5 +1,6 @@
 const router = require("express").Router(); // const router = express.Router();
 
+// funciones de controlador importadas desde controllers/users.js
 const {
   getUsers,
   getUserById,
@@ -8,7 +9,8 @@ const {
   updateUserAvatar,
 } = require("../controllers/users");
 
-router.get("/", getUsers); // Cuando se solicita /, se invoca getUsers
+// Cada ruta específica invocara al controlador correspondiente
+router.get("/", getUsers);
 router.get("/:userId", getUserById);
 router.post("/", createUser);
 router.patch("/me", updateUserProfile);
