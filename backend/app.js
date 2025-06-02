@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const app = express();
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
+const { createUser, login } = require("./controllers/users");
 
 const { PORT = 3000 } = process.env;
 app.listen(PORT, () => {
@@ -28,3 +29,6 @@ app.use((req, res) => {
     message: "Recurso solicitado no encontrado",
   });
 });
+
+app.post("/signin", login);
+spp.post("/signup", createUser);
