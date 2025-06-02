@@ -1,5 +1,7 @@
+const bcrypt = require("bcryptjs"); // se importa bcrypt para encriptar contraseñas
 const User = require("../models/user"); // se declara el modelo User
 const { NotFoundError, InvalidDataError } = require("../utils/errorHandler"); // se importa el manejador de errores
+// const user = require("../models/user");
 
 const getUsers = async (req, res) => {
   try {
@@ -24,11 +26,21 @@ const getUserById = async (req, res) => {
 
 // Crear un nuevo usuario
 const createUser = async (req, res) => {
-  const { name, about, avatar } = req.body; // Desestructuración de req.body
-
   try {
-    const user = await User.create({ name, about, avatar }); // Crea un usuario
-    if (!name || !about || !avatar) {
+    // Extrae los campos necesarios del cuerpo de la solicitud
+    const { name, about, avatar, email, password } = req.body; // Desestructuración de req.body
+
+    const hash = await bcrypt.hash(password, 10); // Encripta la contraseña
+    // Crea un nuevo usuario con los datos proporcionados
+    const user = await User.create({
+      name,
+      about,
+      avatar,
+      email,
+      password: hash, // Guarda la contraseña encriptada
+    });
+
+    if (!user) {
       throw new InvalidDataError();
     }
     res.status(201).send(user);
