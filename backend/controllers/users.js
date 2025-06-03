@@ -2,6 +2,7 @@ const bcrypt = require("bcryptjs"); // se importa bcrypt para encriptar contrase
 const jwt = require("jsonwebtoken"); // se importa jsonwebtoken para manejar tokens JWT
 const User = require("../models/user"); // se declara el modelo User
 const { NotFoundError, InvalidDataError } = require("../utils/errorHandler"); // se importa el manejador de errores
+const { JWT_SECRET = "secret-key" } = process.env; // se importa la clave secreta para JWT desde las variables de entorno
 
 const getUsers = async (req, res) => {
   try {
@@ -32,7 +33,7 @@ const createUser = async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10); // Encripta la contraseña
     // Crea un nuevo usuario con los datos proporcionados
-    const user = await User.create({
+    const newUser = await User.create({
       name,
       about,
       avatar,
@@ -40,10 +41,10 @@ const createUser = async (req, res) => {
       password: hash, // Guarda la contraseña encriptada
     });
 
-    if (!user) {
+    if (!newUser) {
       throw new InvalidDataError();
     }
-    res.status(201).send(user);
+    res.status(201).send(newUser);
   } catch (err) {
     res.status(err.statusCode).send({ message: err.message });
   }
@@ -69,7 +70,7 @@ const login = async (req, res) => {
 
     // Si las credenciales son válidas, crea un token JWT
     const token = jwt.sign(
-      { _id: user._id }, // Crea un token JWT con el ID del usuario
+      { _id: user._id, email: user.email }, // Crea un token JWT con el ID del usuario
       JWT_SECRET,
       { expiresIn: "7d" }
     );
