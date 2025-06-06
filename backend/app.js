@@ -15,14 +15,6 @@ mongoose.connect("mongodb://localhost:27017/aroundb");
 
 app.use(express.json());
 
-// app.use((req, res, next) => {
-//   req.user = {
-//     _id: "67b423a2be796c6f0c6c85cc", // _id del usuario de prueba
-//   };
-//   // Llama a next() para pasar el control al siguiente middleware
-//   next();
-// });
-
 app.post("/signin", login);
 app.post("/signup", createUser);
 
