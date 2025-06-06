@@ -15,7 +15,7 @@ const getUsers = async (req, res) => {
 
 // Obtener un usuario por ID
 const getUserById = async (req, res) => {
-  const { userId } = req.params; // Extrae 'userId' de req.params
+  const { userId } = req.user._id; // Extrae el id del request
 
   try {
     const users = await User.findById(userId).orFail(new NotFoundError()); // Busca un usuario por ID
