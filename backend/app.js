@@ -4,7 +4,7 @@ const app = express();
 const usersRouter = require("./routes/users");
 const cardsRouter = require("./routes/cards");
 const { createUser, login } = require("./controllers/users");
-const auth = require("./Middlewares/auth");
+const auth = require("./middlewares/auth");
 
 const { PORT = 3000 } = process.env;
 app.listen(PORT, () => {
@@ -26,11 +26,10 @@ app.use(express.json());
 app.post("/signin", login);
 app.post("/signup", createUser);
 
+// rutas protegidas
 app.use(auth); // Middleware de autenticación
-
-// Rutas de usuarios y tarjetas
-app.use("/users", usersRouter);
-app.use("/cards", cardsRouter);
+app.use("/users", usersRouter); //users
+app.use("/cards", cardsRouter); //cards
 
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
