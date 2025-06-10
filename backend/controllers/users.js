@@ -54,7 +54,7 @@ const login = async (req, res) => {
   const { email, password } = req.body; // Extrae 'email' y 'password' del cuerpo de la solicitud
 
   try {
-    const user = await User.findOne({ email }); // Busca el usuario por email y selecciona la contraseña
+    const user = await User.findOne({ email }).select("+password"); // Busca el usuario por email y jala la contraseña
     if (!user) {
       return res
         .status(401)
@@ -70,7 +70,7 @@ const login = async (req, res) => {
 
     // Si las credenciales son válidas, crea un token JWT
     const token = jwt.sign(
-      { _id: user._id, email: user.email }, // Crea un token JWT con el ID del usuario
+      { _id: user._id }, // Crea un token JWT con el ID del usuario
       JWT_SECRET,
       { expiresIn: "7d" }
     );

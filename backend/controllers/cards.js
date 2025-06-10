@@ -29,10 +29,22 @@ const deleteCard = async (req, res) => {
   const cardId = req.params.cardId;
 
   try {
-    const card = await Card.findByIdAndDelete(cardId).orFail(
+    // primero buscamos la tarjeta por ID
+    const card = await Card.findById(cardId).orFail(
       new NotFoundError("tarjeta no encontrada")
     );
-    res.send(card);
+
+    // luego verficamos si el usuario que hace la petición es el propietario de la tarjeta
+    if (!card.owner.equals(req.user._id)) {
+      return res
+        .status(403)
+        .send({ message: "No tienes permiso para eliminar esta tarjeta" });
+    }
+
+    // si todo está bien, eliminamos la tarjeta por ID
+    await Card.findByIdAndDelete(cardId);
+
+    res.send({ message: "Tarjeta eliminada correctamente" });
   } catch (err) {
     res.status(err.statusCode || 500).send({ message: err.message });
   }
