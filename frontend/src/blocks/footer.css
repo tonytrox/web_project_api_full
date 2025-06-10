@@ -1,0 +1,22 @@
+.footer {
+  max-width: 880px;
+  margin: 0 auto;
+  padding-top: 48px;
+  padding-bottom: 36px;
+}
+
+.footer__copyright {
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 18px;
+  color: #545454;
+  padding-left: 0;
+  line-height: 1.2;
+  padding-left: 19px;
+}
+
+@media screen and (min-width: 1024px) {
+  .footer__copyright {
+    padding-left: 0px;
+  }
+}

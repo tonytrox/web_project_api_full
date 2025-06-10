@@ -1,0 +1,102 @@
+.register {
+  max-width: 880px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.register__welcome {
+  font-family: "Inter";
+  font-size: 20px;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+}
+
+.register__form input {
+  height: 27px;
+  background-color: #000;
+  border: none;
+  border-bottom: 2px solid #cccccc;
+  outline: none;
+  font-family: "Inter";
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  color: #ffffff;
+}
+
+/* estilo para el placeholder */
+.register__form input::placeholder {
+  color: #cccccc;
+  opacity: 0.7;
+}
+
+.register__button {
+  height: 50px;
+  border: none;
+  margin-top: 173px;
+  border-radius: 5px;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #ffffff;
+}
+
+.register__button:hover {
+  background-color: #cccccc;
+  transition: background-color 0.3s ease;
+  cursor: url("../images/iconhand.svg"), pointer;
+}
+
+.register__signin {
+  display: flex;
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: 400;
+  align-items: center;
+  color: #fff;
+  gap: 5px;
+  margin-top: 20px;
+  margin-bottom: 80px;
+}
+
+.register__login-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.register__login-link:hover {
+  text-decoration: none;
+  color: #ffffff;
+  opacity: 0.6;
+}
+
+@media screen and (min-width: 320px) {
+  .register__welcome {
+    font-size: 24px;
+    margin-bottom: 50px;
+  }
+
+  .register__form {
+    width: 358px;
+  }
+
+  .register__button {
+    margin-top: 186px;
+    font-size: 18px;
+  }
+
+  .register__signin {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+}
