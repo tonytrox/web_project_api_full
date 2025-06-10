@@ -11,7 +11,7 @@ const {
 
 // Cada ruta específica invocara al controlador correspondiente
 router.get("/", getUsers);
-router.get("/me", auth, getUserById);
+router.get("/me", getUserById);
 router.patch("/me", updateUserProfile);
 router.patch("/me/avatar", updateUserAvatar);
 
