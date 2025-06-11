@@ -15,6 +15,7 @@ app.listen(PORT, () => {
 mongoose.connect("mongodb://localhost:27017/aroundb");
 
 app.use(cors()); // Configuración de CORS
+app.options("*", cors()); // Permitir todas las opciones de CORS
 app.use(express.json());
 
 app.post("/signin", login);
@@ -29,5 +30,13 @@ app.use("/cards", cardsRouter); //cards
 app.use((req, res) => {
   res.status(404).send({
     message: "Recurso solicitado no encontrado",
+  });
+});
+
+// Middleware de manejo centralizado de errores
+app.use((err, req, res, next) => {
+  const { statusCode = 500, message } = err;
+  res.status(statusCode).send({
+    message: statusCode === 500 ? "Error interno del servidor" : message,
   });
 });

@@ -21,5 +21,8 @@ module.exports = {
 
     // Aceptar cualquier estilo de salto de línea (Windows o Unix)
     "linebreak-style": "off",
+
+    // ignora el parametro 'next'
+    "no-unused-vars": ["error", { argsIgnorePattern: "next" }],
   },
 };

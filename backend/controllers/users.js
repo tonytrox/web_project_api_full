@@ -9,19 +9,21 @@ const getUsers = async (req, res) => {
     const users = await User.find({});
     res.send(users);
   } catch (err) {
-    res.status(500).send({ message: "Error al obtener usuarios" });
+    // res.status(500).send({ message: "Error al obtener usuarios" });
+    next(err); // Pasa el error al middleware de manejo de errores
   }
 };
 
 // Obtener un usuario por ID
 const getUserById = async (req, res) => {
-  const { userId } = req.user._id; // Extrae el id del request
+  const userId = req.user._id; // Extrae el id del request
 
   try {
-    const users = await User.findById(userId).orFail(new NotFoundError()); // Busca un usuario por ID
-    res.send(users);
+    const user = await User.findById(userId).orFail(new NotFoundError()); // Busca un usuario por ID
+    res.send(user);
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    // res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
   }
 };
 
@@ -46,7 +48,8 @@ const createUser = async (req, res) => {
     }
     res.status(201).send(newUser);
   } catch (err) {
-    res.status(err.statusCode).send({ message: err.message });
+    // res.status(err.statusCode).send({ message: err.message });
+    next(err);
   }
 };
 
@@ -92,7 +95,8 @@ const updateUserProfile = async (req, res) => {
     ).orFail(new NotFoundError());
     res.send(user);
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
+    // res.status(err.statusCode || 500).send({ message: err.message });
   }
 };
 
@@ -108,7 +112,8 @@ const updateUserAvatar = async (req, res) => {
     ).orFail(new NotFoundError());
     res.send(user);
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
+    // res.status(err.statusCode || 500).send({ message: err.message });
   }
 };
 
