@@ -5,7 +5,6 @@ import errorCheck from "../../../../images/checkError.svg";
 const InfoTooltip = ({ onClose, isSuccess, errorMessage }) => {
   return (
     <Popup onClose={onClose}>
-      {console.log(onClose)}
       <img
         className="popup__icon-check"
         src={isSuccess ? successCheck : errorCheck} // logo de éxito o error

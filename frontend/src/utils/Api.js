@@ -1,16 +1,21 @@
 class Api {
-  constructor({ address, token }) {
+  constructor({ address }) {
     this._baseUrl = address;
-    this._headers = {
-      "content-type": "application/json",
-      Authorization: token,
+  }
+
+  _getHeaders() {
+    // Genera los headers dinámicamente para cada petición
+    const token = localStorage.getItem("token");
+    return {
+      "Content-Type": "application/json",
+      Authorization: token ? `Bearer ${token}` : "",
     };
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: this._headers,
+      headers: this._getHeaders(),
     }).then((res) => res.json()); // Lee y transforma la respuesta en datos JSON y se lo pasa al siguiente .then
   }
 
@@ -18,7 +23,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
-      headers: this._headers,
+      headers: this._getHeaders(),
     }).then((res) => res.json());
   }
 
@@ -27,7 +32,7 @@ class Api {
     // espera 2 valores!
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         name: name,
         about: about,
@@ -38,7 +43,7 @@ class Api {
   postCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         name: name,
         link: link,
@@ -49,7 +54,7 @@ class Api {
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getHeaders(),
     }).then((res) => res.json());
   }
 
@@ -57,7 +62,7 @@ class Api {
     console.log("put Likes");
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
-      headers: this._headers,
+      headers: this._getHeaders(),
     }).then((res) => res.json());
   }
 
@@ -65,14 +70,14 @@ class Api {
     console.log("remove Likes");
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: this._getHeaders(),
     }).then((res) => res.json());
   }
 
   updateAvatar(avatar) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._getHeaders(),
       body: JSON.stringify({
         avatar: avatar,
       }),
@@ -89,8 +94,7 @@ class Api {
 }
 
 const api = new Api({
-  address: "https://around-api.es.tripleten-services.com/v1",
-  token: "b618c936-6ee8-401d-bb34-9c0666b34a28",
+  address: "http://localhost:3008",
 });
 
 export default api;
