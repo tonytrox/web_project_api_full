@@ -6,7 +6,8 @@ const getCards = async (req, res) => {
     const cards = await Card.find({});
     res.send(cards);
   } catch (err) {
-    res.status(500).send({ message: "Error al obtener tarjetas" });
+    next(err);
+    // res.status(500).send({ message: "Error al obtener tarjetas" });
   }
 };
 
@@ -21,7 +22,8 @@ const createCard = async (req, res) => {
     }
     res.status(201).send(card);
   } catch (err) {
-    res.status(err.statusCode).send({ message: err.message });
+    // res.status(err.statusCode).send({ message: err.message });
+    next(err);
   }
 };
 
@@ -46,7 +48,8 @@ const deleteCard = async (req, res) => {
 
     res.send({ message: "Tarjeta eliminada correctamente" });
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    // res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
   }
 };
 
@@ -62,7 +65,8 @@ const likeCard = async (req, res) => {
     ).orFail(new NotFoundError("Tarjeta no encontrada"));
     res.send(card);
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    // res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
   }
 };
 
@@ -78,7 +82,8 @@ const dislikeCard = async (req, res) => {
     ).orFail(new NotFoundError("Tarjeta no encontrada"));
     res.send(card);
   } catch (err) {
-    res.status(err.statusCode || 500).send({ message: err.message });
+    // res.status(err.statusCode || 500).send({ message: err.message });
+    next(err);
   }
 };
 
