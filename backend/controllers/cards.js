@@ -1,7 +1,7 @@
 const Card = require("../models/card");
 const { NotFoundError, InvalidDataError } = require("../utils/errorHandler");
 
-const getCards = async (req, res) => {
+const getCards = async (req, res, next) => {
   try {
     const cards = await Card.find({});
     res.send(cards);
@@ -11,7 +11,7 @@ const getCards = async (req, res) => {
   }
 };
 
-const createCard = async (req, res) => {
+const createCard = async (req, res, next) => {
   const { name, link } = req.body;
   const owner = req.user._id; // accedemos al ID del usuario
 
@@ -27,7 +27,7 @@ const createCard = async (req, res) => {
   }
 };
 
-const deleteCard = async (req, res) => {
+const deleteCard = async (req, res, next) => {
   const cardId = req.params.cardId;
 
   try {
@@ -53,7 +53,7 @@ const deleteCard = async (req, res) => {
   }
 };
 
-const likeCard = async (req, res) => {
+const likeCard = async (req, res, next) => {
   const cardId = req.params.cardId;
   const userId = req.user._id;
 
@@ -70,7 +70,7 @@ const likeCard = async (req, res) => {
   }
 };
 
-const dislikeCard = async (req, res) => {
+const dislikeCard = async (req, res, next) => {
   const cardId = req.params.cardId;
   const userId = req.user._id;
 

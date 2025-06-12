@@ -28,7 +28,7 @@ const getUserById = async (req, res) => {
 };
 
 // Crear un nuevo usuario
-const createUser = async (req, res) => {
+const createUser = async (req, res, next) => {
   try {
     // Extrae los campos necesarios del cuerpo de la solicitud
     const { name, about, avatar, email, password } = req.body; // Desestructuración de req.body
@@ -83,7 +83,7 @@ const login = async (req, res) => {
   }
 };
 
-const updateUserProfile = async (req, res) => {
+const updateUserProfile = async (req, res, next) => {
   const { name, about } = req.body;
   const userId = req.user._id;
 
@@ -100,7 +100,7 @@ const updateUserProfile = async (req, res) => {
   }
 };
 
-const updateUserAvatar = async (req, res) => {
+const updateUserAvatar = async (req, res, next) => {
   const { avatar } = req.body;
   const userId = req.user._id;
 
