@@ -6,6 +6,7 @@ const cardsRouter = require("./routes/cards");
 const { createUser, login } = require("./controllers/users");
 const auth = require("./middlewares/auth");
 const cors = require("cors"); // CORS para permitir la comunicación entre frontend y backend
+const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const { PORT = 3008 } = process.env;
 app.listen(PORT, () => {
@@ -18,6 +19,9 @@ app.use(cors()); // Configuración de CORS
 app.options("*", cors()); // Permitir todas las opciones de CORS
 app.use(express.json());
 
+// Middleware de registro de solicitudes
+app.use(requestLogger);
+
 app.post("/signin", login);
 app.post("/signup", createUser);
 
@@ -25,6 +29,9 @@ app.post("/signup", createUser);
 app.use(auth); // Middleware de autenticación
 app.use("/users", usersRouter); //users
 app.use("/cards", cardsRouter); //cards
+
+// Middleware de registro de errores
+app.use(errorLogger);
 
 // Manejo de errores para rutas no encontradas
 app.use((req, res) => {
