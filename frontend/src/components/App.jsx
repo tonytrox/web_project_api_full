@@ -124,17 +124,18 @@ function App() {
   // Función para manejar el inicio de sesión
   const handleSignIn = (email, password) => {
     authorization(email, password)
-      .then((response) => {
-        if (response.error) {
+      .then(async (response) => {
+        // Esperamos que la respuesta se convierta en formato JSON para poder leerla como un objeto
+        const responseJson = await response.json();
+        // Verificamos si la respuesta no fue exitosa
+        if (!response.ok) {
           setInfoPopupOpen(true);
           setInfoSuccess(false);
-          setInfoErrorMessage(response.error);
-          // console.error("Error de inicio de sesión", response.error);
-          // return;
+          setInfoErrorMessage(responseJson.message); // Mostramos el mensaje de error recibido desde el backend
         } else {
-          setJwt(response.token); // Guardar el token en el estado
-          localStorage.setItem("token", response.token); // Guardar el token en el localStorage
-          // setIsLoggedIn(true);
+          // caso contrario, si la respuesta fue exitosa
+          setJwt(responseJson.token); // Guardamos el token que nos envió el backend
+          localStorage.setItem("token", responseJson.token); // lo guardamos en el localStorage del navegador
         }
       })
       .catch((error) => {

@@ -27,8 +27,7 @@ export const authorization = async (email, password) => {
       body: JSON.stringify({ email, password }),
     });
 
-    const responseJson = await response.json();
-    return responseJson;
+    return response;
   } catch (error) {
     console.error("Error de autorización", error);
   }
