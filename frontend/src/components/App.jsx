@@ -167,9 +167,14 @@ function App() {
 
   async function handleCardDelete(cardId) {
     try {
-      await api.deleteCard(cardId);
-      // Filtra las tarjetas para eliminar la que coincida con el ID
-      setCards((state) => state.filter((card) => card._id !== cardId));
+      // espera a que la API elimine la tarjeta y devuelve la respuesta
+      const responseCard = await api.deleteCard(cardId);
+
+      // Aquí verificamos si la operación fue exitosa, revisando la propiedad "ok"
+      if (responseCard.ok) {
+        // Filtra las tarjetas para eliminar la que coincida con el ID
+        setCards((state) => state.filter((card) => card._id !== cardId));
+      }
     } catch (error) {
       console.error("Error al eliminar la tarjeta:", error.message || error);
     }

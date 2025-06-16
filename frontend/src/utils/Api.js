@@ -55,7 +55,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._getHeaders(),
-    }).then((res) => res.json());
+    });
   }
 
   putLikesCard(cardId) {
