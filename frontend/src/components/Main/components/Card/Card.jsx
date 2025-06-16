@@ -1,6 +1,12 @@
+import { useContext } from "react";
+import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
+
 export default function Card(props) {
   const { handleOpenPopup, onCardLike, onCardDelete } = props;
-  const { name, link, _id, isLiked } = props.card;
+  const { name, link, _id, isLiked, owner } = props.card;
+  // accde a la propiedad currentUser del contexto CurrentUserContext
+  // que contiene la información del usuario actual
+  const { currentUser } = useContext(CurrentUserContext);
 
   // Creando objeto con la imagen seleccionada
   const imageComponent = {
@@ -38,13 +44,15 @@ export default function Card(props) {
                 type="button"
                 onClick={handleLikeClick}
               ></button>
-              {/* <p className="element__counter">{likes.length}</p> */}
             </div>
-            <button
-              className="element__remove-button"
-              type="button"
-              onClick={handleDeleteClick}
-            ></button>
+
+            {currentUser && owner === currentUser._id && (
+              <button
+                className="element__remove-button"
+                type="button"
+                onClick={handleDeleteClick}
+              ></button>
+            )}
           </div>
         </div>
       </li>
