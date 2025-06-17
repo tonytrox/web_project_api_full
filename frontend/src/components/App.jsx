@@ -145,9 +145,9 @@ function App() {
 
   // Comprueba si le han dado like a la tarjeta
   async function handleCardLike(card) {
-    const isLiked = card.isLiked;
-
-    // Envía una solicitud a la API y obtiene la tarjeta actualizada
+    const isLiked = card.likes.some((like) => like === currentUser._id);
+    // Llama a la API para cambiar el estado del like de la tarjeta
+    // y actualiza el estado de las tarjetas en consecuencia
     await api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -157,12 +157,12 @@ function App() {
           )
         );
       })
-      .catch(
+      .catch((error) => {
         console.error(
           "Error al cambiar el estado del like:",
           error.message || error
-        )
-      );
+        );
+      });
   }
 
   async function handleCardDelete(cardId) {

@@ -2,17 +2,20 @@ import { useContext } from "react";
 import { CurrentUserContext } from "../../../../contexts/CurrentUserContext";
 
 export default function Card(props) {
-  const { handleOpenPopup, onCardLike, onCardDelete } = props;
-  const { name, link, _id, isLiked, owner } = props.card;
   // accde a la propiedad currentUser del contexto CurrentUserContext
   // que contiene la información del usuario actual
   const { currentUser } = useContext(CurrentUserContext);
+
+  const { handleOpenPopup, onCardLike, onCardDelete } = props;
+  const { name, link, _id, likes, owner } = props.card;
 
   // Creando objeto con la imagen seleccionada
   const imageComponent = {
     name: name,
     link: link,
   };
+
+  const isLiked = likes.some((like) => like === currentUser._id);
 
   const cardLikeButtonClassName = `element__like-button ${
     isLiked ? "element__like-button_active" : ""
