@@ -8,7 +8,7 @@ const auth = require("./middlewares/auth");
 const cors = require("cors"); // CORS para permitir la comunicación entre frontend y backend
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
-const { PORT = 3008 } = process.env;
+const { PORT = 3000 } = process.env;
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
 });

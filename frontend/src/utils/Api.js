@@ -94,7 +94,8 @@ class Api {
 }
 
 const api = new Api({
-  address: "http://localhost:3008",
+  address: "http://api.around.jumpingcrab.com",
+  // address: "http://localhost:3000", // Para desarrollo local
 });
 
 export default api;

@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3008";
+const BASE_URL = "http://api.around.jumpingcrab.com";
 
 export const register = async (email, password) => {
   try {
