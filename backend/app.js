@@ -13,7 +13,7 @@ app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
 });
 
-mongoose.connect("mongodb://localhost:27017/aroundb");
+mongoose.connect("mongodb://127.0.0.1:27017/aroundb");
 
 app.use(cors()); // Configuración de CORS
 app.options("*", cors()); // Permitir todas las opciones de CORS
