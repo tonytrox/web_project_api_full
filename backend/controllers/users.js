@@ -2,7 +2,7 @@ const bcrypt = require("bcryptjs"); // se importa bcrypt para encriptar contrase
 const jwt = require("jsonwebtoken"); // se importa jsonwebtoken para manejar tokens JWT
 const User = require("../models/user"); // se declara el modelo User
 const { NotFoundError, InvalidDataError } = require("../utils/errorHandler"); // se importa el manejador de errores
-const { JWT_SECRET = "secret-key" } = process.env; // se importa la clave secreta para JWT desde las variables de entorno
+const { JWT_SECRET } = process.env; // se importa las variables de entorno
 
 const getUsers = async (req, res) => {
   try {

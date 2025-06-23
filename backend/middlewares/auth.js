@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const { JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
@@ -13,7 +14,7 @@ const auth = (req, res, next) => {
 
   try {
     // Verifica el token y decodifica su contenido
-    payload = jwt.verify(token, "secret-key");
+    payload = jwt.verify(token, JWT_SECRET);
   } catch (err) {
     return res.status(403).send({ message: "Token inválido" });
   }

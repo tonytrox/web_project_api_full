@@ -1,3 +1,8 @@
+// Cargar el módulo dotenv
+const dotenv = require("dotenv");
+// Ejecutar la función config() para cargar las variables
+dotenv.config();
+
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
@@ -8,7 +13,8 @@ const auth = require("./middlewares/auth");
 const cors = require("cors"); // CORS para permitir la comunicación entre frontend y backend
 const { requestLogger, errorLogger } = require("./middlewares/logger");
 
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
+
 app.listen(PORT, () => {
   console.log(`App listening at port ${PORT}`);
 });
