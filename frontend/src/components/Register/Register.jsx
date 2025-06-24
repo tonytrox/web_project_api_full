@@ -11,7 +11,6 @@ export default function Register({ handleSignUp }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(data);
     handleSignUp(data.email, data.password);
   };
 

@@ -1,4 +1,4 @@
-# Proyecto: Around the World - API y Frontend
+# Proyecto 18: Around the World - API y Frontend
 
 Este proyecto es una aplicación web completa que permite a los usuarios registrarse, iniciar sesión, editar su perfil y compartir fotos en forma de tarjetas, además de poner y quitar "me gusta" en las publicaciones de otros usuarios.
 

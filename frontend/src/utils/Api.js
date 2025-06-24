@@ -59,7 +59,7 @@ class Api {
   }
 
   putLikesCard(cardId) {
-    console.log("put Likes");
+    // console.log("put Likes");
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._getHeaders(),
@@ -67,7 +67,7 @@ class Api {
   }
 
   removeLikesCard(cardId) {
-    console.log("remove Likes");
+    // console.log("remove Likes");
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._getHeaders(),
